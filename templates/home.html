@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="content">
+   
+    <div class="banner">
+        <img src="{{ url_for('static', filename='college-photo.jpg') }}" alt="Our College" class="college-photo">
+    </div>
+    <h1>Welcome to Auditorium Booking</h1>
+    <p>Book your events with ease and efficiency.</p>
+    <div class="procedure">
+        <h3>How It Works</h3>
+        <ol>
+            <li>Check the availability.</li>
+            <li>Enter your details and book a slot.</li>
+            <li>Download the PDF confirmation.</li>
+            <li>Visit the admin block with the generated PDF.</li>
+            <li>Get it signed by the principal.</li>
+            <li>Submit the signed form to the admin.</li>
+        </ol>
+    </div>
+    <a href="{{ url_for('book_appointment') }}" class="btn">Book Now</a>
+
+    <!-- Scroll-down section for booked dates -->
+    <div class="booked-dates">
+        <h3>Booked Dates</h3>
+        {% if booked_appointments %}
+            <table class="booked-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Institute</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in booked_appointments %}
+                        <tr>
+                            <td>{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ appointment.name }}</td>
+                            <td>{{ appointment.institute_name }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No bookings yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

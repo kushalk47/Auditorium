@@ -1,0 +1,164 @@
+/* Existing CSS remains unchanged */
+.bd-navbar {
+    padding: 0.75rem 0;
+    background-color: #007bff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bd-navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.bd-navbar ul li {
+    margin: 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.bd-navbar ul li a {
+    text-decoration: none;
+    color: black;
+    transition: color 0.3s;
+}
+
+.bd-navbar ul li a:hover {
+    color: #fff;
+}
+
+.content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.procedure ol {
+    text-align: left;
+    max-width: 600px;
+    margin: auto;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.procedure li {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+/* New styles for book_appointment.html */
+.form-container {
+    max-width: 500px;
+    margin: 0 auto; /* Centers the form horizontally */
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical; /* Allows vertical resizing only */
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+
+/* Add to existing styles.css */
+.booked-dates {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.booked-dates h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.booked-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.booked-table th,
+.booked-table td {
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    text-align: left;
+}
+
+.booked-table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: 600;
+}
+
+.booked-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.booked-dates p {
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+
+.banner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 2rem auto; /* Centers and adds spacing below */
+    overflow: hidden; /* Ensures image doesn’t overflow */
+}
+
+.college-photo {
+    width: 100%;
+    height: auto;
+     /* Limits height for consistency */
+    object-fit: cover; /* Crops image to fit without distortion */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: block ;
+    
+}
