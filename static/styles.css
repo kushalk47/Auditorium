@@ -1,4 +1,15 @@
-/* Existing CSS remains unchanged */
+/* Global font size */
+html {
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+/* Navigation Bar */
 .bd-navbar {
     padding: 0.75rem 0;
     background-color: #007bff;
@@ -25,17 +36,76 @@
     text-decoration: none;
     color: black;
     transition: color 0.3s;
+    padding: 0.5rem 1rem;
+    display: block;
 }
 
 .bd-navbar ul li a:hover {
     color: #fff;
 }
 
+.hamburger {
+    display: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: black;
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    .bd-navbar {
+        padding: 0.5rem;
+        position: relative;
+    }
+
+    .bd-navbar ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #007bff;
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+
+    .bd-navbar ul.active {
+        display: flex;
+    }
+
+    .bd-navbar ul li {
+        margin: 0;
+        text-align: center;
+        font-size: 1.5rem;
+    }
+
+    .bd-navbar ul li a {
+        padding: 1rem;
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
+
+/* Content */
 .content {
     padding: 2rem;
     text-align: center;
 }
 
+@media (max-width: 768px) {
+    .content {
+        padding: 1rem;
+    }
+}
+
+/* Procedure */
 .procedure ol {
     text-align: left;
     max-width: 600px;
@@ -51,10 +121,21 @@
     margin: 0.5rem 0;
 }
 
-/* New styles for book_appointment.html */
+@media (max-width: 768px) {
+    .procedure ol {
+        max-width: 100%;
+        padding: 0.75rem;
+    }
+
+    .procedure li {
+        font-size: 1.2rem;
+    }
+}
+
+/* Form */
 .form-container {
     max-width: 500px;
-    margin: 0 auto; /* Centers the form horizontally */
+    margin: 0 auto;
     background: #f8f9fa;
     padding: 1.5rem;
     border-radius: 8px;
@@ -82,7 +163,7 @@
 }
 
 .form-group textarea {
-    resize: vertical; /* Allows vertical resizing only */
+    resize: vertical;
 }
 
 button[type="submit"] {
@@ -100,8 +181,25 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+@media (max-width: 768px) {
+    .form-container {
+        max-width: 100%;
+        padding: 1rem;
+    }
 
-/* Add to existing styles.css */
+    .form-group input,
+    .form-group textarea {
+        padding: 0.75rem;
+        font-size: 1.1rem;
+    }
+
+    button[type="submit"] {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Booked Dates */
 .booked-dates {
     margin-top: 3rem;
     padding: 1.5rem;
@@ -145,20 +243,57 @@ button[type="submit"]:hover {
     color: #6c757d;
 }
 
+@media (max-width: 768px) {
+    .booked-dates {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .booked-dates h3 {
+        font-size: 1.75rem;
+    }
+
+    .booked-dates p {
+        font-size: 1.2rem;
+    }
+
+    .booked-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .booked-table th,
+    .booked-table td {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Banner and Image */
 .banner {
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto 2rem auto; /* Centers and adds spacing below */
-    overflow: hidden; /* Ensures image doesn’t overflow */
+    margin: 0 auto 2rem auto;
+    overflow: hidden;
 }
 
 .college-photo {
     width: 100%;
     height: auto;
-     /* Limits height for consistency */
-    object-fit: cover; /* Crops image to fit without distortion */
+    object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: block ;
-    
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .banner {
+        max-width: 100%;
+        margin: 0 0 1rem 0;
+    }
+
+    .college-photo {
+        max-height: 300px;
+    }
 }
