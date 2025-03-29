@@ -1,13 +1,13 @@
-from app import app, db
-from models import User  # Change 'User' to your actual table name
+# add_admin.py
+from __init__ import create_app, db
+from models import Admin
 
-with app.app_context():  # Ensure Flask app context is active
-    try:
-        users = User.query.all()
-        if users:
-            for user in users:
-                print(user)
-        else:
-            print("Database initialized but no records found.")
-    except Exception as e:
-        print(f"Error accessing database: {e}")
+app = create_app()
+
+with app.app_context():
+    # Create a new admin
+    admin = Admin(name="sjbit")
+    admin.set_password("forty#SJBIT") # Set password
+    db.session.add(admin)
+    db.session.commit()
+    print("Admin added successfully!")

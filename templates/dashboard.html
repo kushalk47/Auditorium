@@ -1,0 +1,59 @@
+<!-- templates/dashboard.html -->
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, {{ session.admin_name }}!</p>
+
+    <h2>Manage Appointments</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% if appointments %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Institute</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appointment in appointments %}
+            {% if appointment.appointment_date >= current_date %}
+              <tr>
+                <td>{{ appointment.id }}</td>
+                <td>{{ appointment.name }}</td>
+                <td>{{ appointment.institute_name }}</td>
+                <td>{{ appointment.status }}</td>
+                <td>{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</td>
+                <td>
+                  {% if appointment.status != "approved" %}
+                    <form method="POST" action="{{ url_for('approve_appointment', appointment_id=appointment.id) }}" style="display:inline;">
+                      <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                  {% else %}
+                    <span class="approved-text">Approved</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No appointments found.</p>
+    {% endif %}
+
+    <a href="{{ url_for('view_appointments') }}" class="btn btn-primary">View All Appointments</a>
+  </div>
+{% endblock %}

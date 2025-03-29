@@ -33,14 +33,16 @@
                         <th>Date</th>
                         <th>Name</th>
                         <th>Institute</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for appointment in booked_appointments %}
+                    {% for appointment in booked_appointments if appointment.status ==  'approved' and appointment.appointment_date   >= current_date %}
                         <tr>
                             <td>{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</td>
                             <td>{{ appointment.name }}</td>
                             <td>{{ appointment.institute_name }}</td>
+                            <td>{{appointment.status}}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

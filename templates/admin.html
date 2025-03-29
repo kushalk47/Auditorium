@@ -1,8 +1,10 @@
-{% extends 'base.html' %}
-
-{% block title %}Admin{% endblock %}
+<!-- templates/admin.html -->
+{% extends "base.html" %}
 
 {% block content %}
-    <h1>Admin Panel</h1>
-    <p>Admin functionalities will be added later.</p>
+  <div class="container">
+    <h1>Admin Page</h1>
+    <p>Welcome, {{ session.admin_name }}! This is the admin page.</p>
+    <p>Go to the <a href="{{ url_for('dashboard') }}">Dashboard</a> to manage appointments.</p>
+  </div>
 {% endblock %}
