@@ -3,9 +3,10 @@ from flask import render_template, request, flash, redirect, url_for, session
 from __init__ import db, app
 from handler import book_appointment_handler
 from admin_handler import admin_login_handler
-from models import Appointment
+from models import Appointment,Session
 from sqlalchemy import text
 from datetime import datetime
+
 
 @app.route('/')
 def home():
@@ -71,6 +72,9 @@ def view_appointments():
 
 @app.route('/test-connection')
 def test_connection():
+    if 'admin_id' not in session:
+        return "Unauthorized access"
+
     try:
         # Wrap the raw SQL with text()
         result = db.session.execute(text("SELECT VERSION()"))

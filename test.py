@@ -6,8 +6,8 @@ app = create_app()
 
 with app.app_context():
     # Create a new admin
-    admin = Admin(name="sjbit")
-    admin.set_password("forty#SJBIT") # Set password
+    admin = Admin(name="kushal")
+    admin.set_password("minimal1234") # Set password
     db.session.add(admin)
     db.session.commit()
     print("Admin added successfully!")

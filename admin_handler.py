@@ -1,10 +1,15 @@
 # admin_handler.py
 from flask import request, redirect, url_for, flash, session,render_template
-from __init__ import db
+from __init__ import db,app
 from models import Admin, Session
 from datetime import datetime
 import uuid
+from flask_limiter import  Limiter
+from flask_limiter.util import get_remote_address
 
+limiter=Limiter(app=app,key_func=get_remote_address)
+
+@limiter.limit(" 2 per minute")
 def admin_login_handler():
     if request.method == "POST":
         try:

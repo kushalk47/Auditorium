@@ -28,6 +28,21 @@ def book_appointment_handler():
                 flash(f"The date {request_date.strftime('%Y-%m-%d')} is already booked and approved. Please choose another date.", "danger")
                 return redirect(url_for("book_appointment"))
 
+            existing_same_data=Appointment.query.filter(
+                Appointment.appointment_date==request_date,
+                Appointment.name==name
+            ).first()
+
+            if existing_same_data:
+                flash(f"The slot is already booked by you for the same day","danger")
+                return redirect(url_for("book_appointment"))
+            
+            if request_date < datetime.today():
+                    flash("Cannot book an appointment in the past!", "danger")
+                    return redirect(url_for("book_appointment"))
+               
+                                                                                             
+
             # Store the appointment in the database
             new_user = User(
                 name=name,
@@ -48,6 +63,8 @@ def book_appointment_handler():
             )
             db.session.add(new_appointment)
             db.session.commit()
+
+            flash("Appointment booked successfully! ", "success")
 
             # Generate the PDF
             buffer = io.BytesIO()
@@ -109,7 +126,7 @@ def book_appointment_handler():
             buffer.seek(0)
 
             # Flash success message
-            flash("Appointment booked successfully! Your confirmation PDF is being downloaded.", "success")
+            
 
             # Send the PDF as a downloadable file
             return send_file(

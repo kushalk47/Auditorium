@@ -1,13 +1,18 @@
 /* Global font size */
-html {
+html
+ {
     font-size: 16px;
+    scroll-behavior: smooth;
+    font-family: 'Roboto', 'Arial', sans-serif;
 }
+
 
 @media (max-width: 768px) {
     html {
-        font-size: 18px;
+        font-size: 1.125rem;    
     }
 }
+
 
 /* Navigation Bar */
 .bd-navbar {
@@ -43,6 +48,11 @@ html {
 .bd-navbar ul li a:hover {
     color: #fff;
 }
+.bd-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
 @media (max-width: 768px) {
     .bd-navbar {
@@ -69,7 +79,7 @@ html {
 
 /* Content */
 .content {
-    padding: 2rem;
+    padding: 3rem;
     text-align: center;
 }
 
@@ -107,14 +117,17 @@ html {
 }
 
 /* Form */
-.form-container {
-    max-width: 500px;
-    margin: 0 auto;
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+
+    .form-container 
+    {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+
 
 .form-group {
     margin-bottom: 1rem;
@@ -159,6 +172,10 @@ button[type="submit"]:hover {
     .form-container {
         max-width: 100%;
         padding: 1rem;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .form-group input,
@@ -216,6 +233,15 @@ button[type="submit"]:hover {
     font-size: 1.1rem;
     color: #6c757d;
 }
+.booked-table tr {
+    transition: transform 0.2s ease-in-out;
+}
+
+.booked-table tr:hover {
+    transform: scale(1.05);
+    background-color: #f0f8ff;
+}
+
 
 @media (max-width: 768px) {
     .booked-dates {
@@ -242,6 +268,15 @@ button[type="submit"]:hover {
         padding: 1rem;
         font-size: 1.1rem;
     }
+    .booked-table tr {
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .booked-table tr:hover {
+        transform: scale(1.05);
+        background-color: #f0f8ff;
+    }
+    
 }
 
 /* Banner and Image */
@@ -268,7 +303,7 @@ button[type="submit"]:hover {
     }
 
     .college-photo {
-        max-height: 300px;
+        max-height: 50vh;
     }
 }
 /* this is for flash meesage */
