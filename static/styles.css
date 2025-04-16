@@ -254,7 +254,7 @@ h3 { font-size: 1.5rem; }
 .hero-image-container img {
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-lg);
-    max-width: 600px; /* Limit image size */
+    max-width: 800px; /* Limit image size */
     margin: 0 auto;
     object-fit: fill; /* Or contain, depending on image */
     max-height: 350px; /* Limit height */
