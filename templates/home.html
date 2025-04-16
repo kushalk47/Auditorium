@@ -1,55 +1,84 @@
 {% extends 'base.html' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home - Auditorium Booking{% endblock %}
 
 {% block content %}
-<div class="content">
-   
-    <div class="banner">
-        <img src="{{ url_for('static', filename='college-photo.jpg') }}" alt="Our College" class="college-photo">
+<section class="hero-section">
+    <div class="hero-image-container animate-on-scroll">
+        <img src="{{ url_for('static', filename='image.png') }}" alt="View of Our College Auditorium" loading="lazy">
     </div>
-    <h1>Welcome to Auditorium Booking</h1>
-    <p>Book your events with ease and efficiency.</p>
-    <div class="procedure">
-        <h3>Procedure to book </h3>
-        <ol>
-            <li>Check the availability.</li>
-            <li>Enter your details and book a slot.</li>
-            <li>Download the PDF confirmation.</li>
-            <li>Visit the admin block with the generated PDF.</li>
-            <li>Get it signed by the principal.</li>
-            <li>Submit the signed form to the admin.</li>
-        </ol>
-    </div>
-    <a href="{{ url_for('book_appointment') }}" class="btn">Book Now</a>
 
-    <!-- Scroll-down section for booked dates -->
-    <div class="booked-dates">
-        <h3>Booked Dates</h3>
-        {% if booked_appointments %}
+    <div class="hero-content animate-on-scroll">
+        <h1>Book the College Auditorium</h1>
+        <p>Easily check availability and reserve the auditorium for your events.</p>
+        <a href="{{ url_for('book_appointment') }}" class="btn btn-primary btn-pulse">Book a Slot Now</a>
+    </div>
+    
+</section>
+
+<section class="booking-procedure content-section animate-on-scroll" id="how-to-book">
+    <h2>How to Book Your Slot</h2>
+    <ol class="steps-grid">
+        <li class="step-card">
+            <div class="step-number">1</div>
+            <p>Check the <a href="#booked-dates">availability calendar</a> below.</p>
+        </li>
+        <li class="step-card">
+            <div class="step-number">2</div>
+            <p>Go to the 'Book Slot' page and fill in your details.</p>
+        </li>
+        <li class="step-card">
+            <div class="step-number">3</div>
+            <p>Download the generated PDF confirmation after submission.</p>
+        </li>
+        <li class="step-card">
+            <div class="step-number">4</div>
+            <p>Visit the admin block with the printed PDF.</p>
+        </li>
+        <li class="step-card">
+            <div class="step-number">5</div>
+            <p>Get the form signed by the principal.</p>
+        </li>
+        <li class="step-card">
+            <div class="step-number">6</div>
+            <p>Submit the signed form back to the admin office.</p>
+        </li>
+    </ol>
+</section>
+
+<section class="booked-dates-section content-section animate-on-scroll" id="booked-dates">
+    <h3>Upcoming Approved Bookings</h3>
+    {% if booked_appointments %}
+        <div class="table-container">
             <table class="booked-table">
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Name</th>
-                        <th>Institute</th>
-                        <th>Status</th>
-                    </tr>
+                        <th>Booked By</th>
+                        <th>Department/Institute</th>
+                        </tr>
                 </thead>
                 <tbody>
-                    {% for appointment in booked_appointments if appointment.status ==  'approved' and appointment.appointment_date   >= current_date %}
+                    {% for appointment in booked_appointments if appointment.status == 'approved' and appointment.appointment_date >= current_date %}
                         <tr>
-                            <td>{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</td>
-                            <td>{{ appointment.name }}</td>
-                            <td>{{ appointment.institute_name }}</td>
-                            <td>{{appointment.status}}</td>
+                            <td data-label="Date">{{ appointment.appointment_date.strftime('%d %b %Y') }}</td>
+                            <td data-label="Booked By">{{ appointment.name }}</td>
+                            <td data-label="Institute">{{ appointment.institute_name }}</td>
+                            </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3" class="no-bookings">No upcoming approved bookings found.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            <p>No bookings yet.</p>
-        {% endif %}
-    </div>
-</div>
+        </div>
+    {% else %}
+        <p class="no-bookings">No bookings have been made yet.</p>
+    {% endif %}
+    <p class="availability-note">Please check this list before attempting to book.</p>
+</section>
 {% endblock %}
+
+{% block extra_js %}
+    {% endblock %}

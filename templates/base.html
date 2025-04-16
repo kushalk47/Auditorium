@@ -3,26 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Auditorium Booking{% endblock %}</title>
+    <title>{% block title %}Auditorium Booking - My College{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 </head>
 <body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="{{ url_for('home') }}" class="logo">BGS & SJB Group of instituions</a>
 
-    <!-- Navigation bar -->
-    <nav class="bd-navbar">
-        <ul>
-            <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="{{ url_for('book_appointment') }}">Book Slot</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-            <li><a href="{{ url_for('admin') }}">Admin</a></li>
-        </ul>
-    </nav>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('book_appointment') }}">Book Slot</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('admin') }}">Admin</a></li>
+                </ul>
+            </nav>
 
-    <!-- Main content area -->
-    <div class="content">
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+                <span class="hamburger-icon"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-content">
         {% block content %}
         {% endblock %}
-    </div>
+    </main>
 
-</body>
+    <footer class="site-footer">
+        <p>&copy; <span id="current-year"></span> My College. All rights reserved.</p>
+        </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    {% block extra_js %}{% endblock %} </body>
 </html>

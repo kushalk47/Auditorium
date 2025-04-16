@@ -3,6 +3,46 @@
 {% block title %}About{% endblock %}
 
 {% block content %}
-    <h1>About Our Auditorium Booking System</h1>
-    <p>This system allows students and faculty to book the college auditorium.</p>
+<div class="about-container">
+    <header class="about-header animate-on-scroll">
+        <h1>Auditorium Showcase</h1>
+        <p>Explore our state-of-the-art auditorium facilities</p>
+    </header>
+
+    <section class="image-carousel animate-on-scroll">
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="{{ url_for('static', filename='images/image1.jpg') }}" alt="Auditorium Image 1">
+            </div>
+            <div class="carousel-slide">
+                <img src="{{ url_for('static', filename='images/image2.jpg') }}" alt="Auditorium Image 2">
+            </div>
+            <div class="carousel-slide">
+                <img src="{{ url_for('static', filename='images/image3.jpg') }}" alt="Auditorium Image 3">
+            </div>
+        </div>
+        <button class="prev-button">‹</button>
+        <button class="next-button">›</button>
+        <div class="carousel-indicators"></div>
+    </section>
+
+    <section class="admin-details animate-on-scroll">
+        <h2>Administrator Details</h2>
+        <p>Name: <span id="admin-name">Contact Admin</span></p>
+        <p>Contact Number: <span id="admin-contact">Not Available</span></p>
+    </section>
+
+    <section class="contact-info animate-on-scroll">
+        <h2>Contact Support</h2>
+        <p><a href="mailto:kushalkadur47@gmail.com" class="contact-link">kushalkadur47@gmail.com</a></p>
+        <p><a href="tel:+919741692290" class="contact-link">[9741692290]</a></p>
+    </section>
+
+    <footer class="about-footer animate-on-scroll">
+        <p>Powered by SJBIT, CSE(DS)</p>
+    </footer>
+</div>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+<script src="{{ url_for('static', filename='js/about.js') }}"></script>
 {% endblock %}

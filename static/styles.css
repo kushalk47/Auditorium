@@ -1,362 +1,980 @@
-/* Global font size */
-html
- {
-    font-size: 16px;
-    scroll-behavior: smooth;
-    font-family: 'Roboto', 'Arial', sans-serif;
+/* === Root Variables === */
+:root {
+    --primary-color: #1d4ed8; /* Deep Blue */
+    --secondary-color: #3b82f6; /* Bright Blue */
+    --accent-color: #10b981; /* Teal/Green */
+    --accent-hover: #059669; /* Darker Teal/Green */
+    --background-color: #f8fafc; /* Very Light Gray */
+    --card-background: #ffffff; /* White */
+    --text-color: #1f2937; /* Dark Gray/Black */
+    --text-light: #f8fafc; /* Light text for dark backgrounds */
+    --border-color: #e5e7eb; /* Light Gray Border */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 16px;
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --transition-speed: 0.3s;
+    --navbar-height: 70px; /* Example height */
 }
 
-
-@media (max-width: 768px) {
-    html {
-        font-size: 1.125rem;    
-    }
-}
-
-
-/* Navigation Bar */
-.bd-navbar {
-    padding: 0.75rem 0;
-    background-color: #007bff;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(255, 255, 255, 0.15);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.bd-navbar ul {
-    list-style-type: none;
+/* === Global Resets & Base Styles === */
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
-    display: flex;
+    box-sizing: border-box;
 }
 
-.bd-navbar ul li {
-    margin: 0 1rem;
-    font-size: 1.25rem;
+html {
+    scroll-behavior: smooth; /* Apply smooth scroll globally */
+    font-size: 16px; /* Base font size */
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1; /* Ensures footer stays at the bottom */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit:fill;
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.75em;
+    line-height: 1.2;
+    color: var(--primary-color);
     font-weight: 600;
 }
 
-.bd-navbar ul li a {
-    text-decoration: none;
-    color: black;
-    transition: color 0.3s;
-    padding: 0.5rem 1rem;
-    display: block;
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+
+/* === Layout Containers === */
+.content-section {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
 }
 
-.bd-navbar ul li a:hover {
-    color: #fff;
+.header-container, .main-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem; /* Padding on sides */
 }
-.bd-navbar {
+
+/* === Header & Navigation === */
+.site-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 0.5rem 0; /* Reduced padding, rely on container */
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: var(--shadow-md);
+    transition: background var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    height: var(--navbar-height);
 }
 
-@media (max-width: 768px) {
-    .bd-navbar {
-        padding: 0.5rem 0;
-    }
-
-    .bd-navbar ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .bd-navbar ul li {
-        margin: 0 0.5rem;
-        font-size: 1rem;
-        min-width: 70px;
-        text-align: center;
-    }
-
-    .bd-navbar ul li a {
-        padding: 0.5rem;
-    }
+.site-header.scrolled {
+    background: linear-gradient(135deg, var(--primary-color), #1e40af); /* Darker gradient */
+    box-shadow: var(--shadow-lg);
 }
 
-/* Content */
-.content {
-    padding: 3rem;
-    text-align: center;
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
 }
 
-@media (max-width: 768px) {
-    .content {
-        padding: 1rem;
-    }
+.logo {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 0.5rem 0;
 }
 
-/* Procedure */
-.procedure ol {
-    text-align: left;
-    max-width: 600px;
-    margin: auto;
-    padding: 1rem;
-    background: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.main-nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 1.5rem; /* Adjusted gap */
 }
 
-.procedure li {
-    font-size: 1.1rem;
-    margin: 0.5rem 0;
-}
-
-@media (max-width: 768px) {
-    .procedure ol {
-        max-width: 100%;
-        padding: 0.75rem;
-    }
-
-    .procedure li {
-        font-size: 1.2rem;
-    }
-}
-
-/* Form */
-
-    .form-container 
-    {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        padding: 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-    
-
-
-.form-group {
-    margin-bottom: 1rem;
-    text-align: left;
-}
-
-.form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
+.main-nav li a {
+    color: var(--text-light);
+    font-weight: 500;
     font-size: 1rem;
+    padding: 0.6rem 1rem;
+    border-radius: var(--border-radius-md);
+    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+    position: relative;
+    display: inline-block; /* Needed for transform */
 }
 
-.form-group textarea {
-    resize: vertical;
+.main-nav li a:hover,
+.main-nav li a:focus-visible { /* Style for hover and keyboard focus */
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    outline: none; /* Remove default outline, using background instead */
 }
 
-button[type="submit"] {
-    background-color: #007bff;
-    color: white;
-    padding: 0.75rem 1.5rem;
+/* Underline effect */
+.main-nav li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 5px; /* Adjust position */
+    left: 50%;
+    background: var(--accent-color);
+    transition: width var(--transition-speed) ease;
+    transform: translateX(-50%);
+    border-radius: 1px;
+}
+
+.main-nav li a:hover::after,
+.main-nav li a:focus-visible::after {
+    width: 60%;
+}
+
+/* Mobile Navigation Toggle */
+.nav-toggle {
+    display: none; /* Hidden by default */
+    background: none;
     border: none;
-    border-radius: 4px;
-    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    padding: 0.5rem;
+    z-index: 1001; /* Above nav */
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
+.hamburger-icon {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-light);
+    position: relative;
+    transition: background-color 0s 0.15s linear; /* Delay disappearance */
+    border-radius: 2px;
 }
 
-@media (max-width: 768px) {
-    .form-container {
-        max-width: 100%;
-        padding: 1rem;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .form-group input,
-    .form-group textarea {
-        padding: 0.75rem;
-        font-size: 1.1rem;
-    }
-
-    button[type="submit"] {
-        padding: 1rem 2rem;
-        font-size: 1.1rem;
-    }
+.hamburger-icon::before,
+.hamburger-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-light);
+    border-radius: 2px;
+    transition: transform var(--transition-speed) ease-in-out, top var(--transition-speed) ease-in-out;
 }
 
-/* Booked Dates */
-.booked-dates {
-    margin-top: 3rem;
-    padding: 1.5rem;
-    background: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
+.hamburger-icon::before { top: -8px; }
+.hamburger-icon::after { top: 8px; }
+
+/* Mobile Nav Active State (when .nav-open is added to body) */
+.nav-open .hamburger-icon {
+    background-color: transparent; /* Middle bar disappears */
+}
+
+.nav-open .hamburger-icon::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.nav-open .hamburger-icon::after {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+/* === Hero Section === */
+.hero-section {
+    display: flex;
+    flex-wrap: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 1.5rem;
+    background: linear-gradient(135deg, rgba(29, 78, 216, 0.1), rgba(59, 130, 246, 0.05)), var(--background-color); /* Subtle gradient background */
+    text-align: center;
+    gap: 2rem;
+    width :90vw;
+    position:relative;
+    left:50%;
+    transform: translateX(-50%);
+
+
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.booked-dates h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+.hero-image-container img {
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 350px; /* Limit image size */
+    margin: 0 auto;
+    object-fit: fill; /* Or contain, depending on image */
+    max-height: 350px; /* Limit height */
+}
+
+/* === Booking Procedure Section === */
+.booking-procedure h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.booking-procedure h2::after {
+    content: '';
+    width: 80px;
+    height: 4px;
+    background: var(--accent-color);
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    list-style: none;
+}
+
+.step-card {
+    background: var(--background-color);
+    padding: 2.5rem 1.5rem 1.5rem; /* More top padding for number */
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+.step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.step-number {
+    position: absolute;
+    top: -20px; /* Position slightly above the card */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background: var(--secondary-color);
+    color: var(--text-light);
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-md);
+    border: 2px solid var(--card-background); /* Create separation */
+}
+
+.step-card p {
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+/* === Buttons === */
+.btn {
+    display: inline-block; /* Changed from block */
+    background: var(--accent-color);
+    color: var(--text-light);
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px; /* Pill shape */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all var(--transition-speed) ease;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    border: none;
+    text-align: center;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    background: var(--accent-hover);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    outline: none;
+}
+
+/* Pulse animation purely in CSS */
+.btn-pulse {
+    animation: pulse 1.5s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* === Booked Dates Table === */
+.booked-dates-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-left: 1.2rem;
+    border-left: 4px solid var(--accent-color);
+}
+
+.table-container {
+    overflow-x: auto; /* Allow horizontal scroll on small screens */
+    background: var(--card-background); /* Background for container if table scrolls */
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
 }
 
 .booked-table {
     width: 100%;
     border-collapse: collapse;
+    background: var(--card-background); /* Table BG */
 }
 
 .booked-table th,
 .booked-table td {
-    padding: 0.75rem;
-    border: 1px solid #ced4da;
+    padding: 1rem 1.25rem;
     text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
 }
 
 .booked-table th {
-    background-color: #007bff;
-    color: white;
+    background: var(--secondary-color);
+    color: var(--text-light);
     font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
 }
 
-.booked-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+/* Remove bottom border for last row */
+.booked-table tr:last-child td {
+    border-bottom: none;
 }
 
-.booked-dates p {
-    font-size: 1.1rem;
-    color: #6c757d;
-}
-.booked-table tr {
-    transition: transform 0.2s ease-in-out;
+.booked-table tbody tr:hover td {
+    background-color: #f1f5f9; /* Light hover effect */
 }
 
-.booked-table tr:hover {
-    transform: scale(1.05);
-    background-color: #f0f8ff;
+.status-approved { /* Example if you bring status back */
+    color: var(--accent-color);
+    font-weight: 600;
+    text-transform: capitalize;
 }
 
+.no-bookings {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280; /* Gray */
+}
 
-@media (max-width: 768px) {
-    .booked-dates {
-        max-width: 100%;
-        padding: 1rem;
+.availability-note {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* === Footer === */
+.site-footer {
+    background-color: #e2e8f0; /* Light gray background */
+    color: #475569; /* Muted text color */
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: 3rem; /* Space above footer */
+    font-size: 0.9rem;
+}
+
+/* === Animations === */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    /* transform: translateY(25px); Keep initial transform if you want */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+    /* Or trigger animation if preferred over transition */
+    /* animation: fadeInUp 0.6s ease-out forwards; */
+}
+
+/* Delay for staggered animations (apply classes like .delay-1, .delay-2 to elements) */
+.animate-on-scroll.visible.delay-1 { transition-delay: 0.1s; }
+.animate-on-scroll.visible.delay-2 { transition-delay: 0.2s; }
+.animate-on-scroll.visible.delay-3 { transition-delay: 0.3s; }
+
+/* === Accessibility === */
+*:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3); /* Optional softer focus ring */
+}
+
+/* === Responsive Design === */
+
+/* Medium screens (Tablets) */
+@media (max-width: 992px) {
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.4rem; }
+
+    .header-container, .main-content {
+        padding: 0 1rem;
     }
 
-    .booked-dates h3 {
+    .hero-section {
+        padding: 2rem 1rem;
+        flex-direction: column; /* Ensure stacking */
+    }
+}
+
+/* Small screens (Mobiles) */
+@media (max-width: 768px) {
+    html { font-size: 15px; } /* Slightly smaller base font */
+
+    h1 { font-size: 2rem; }
+
+    .main-nav {
+        display: none; /* Hide desktop nav */
+        position: absolute;
+        top: var(--navbar-height); /* Position below header */
+        left: 0;
+        right: 0;
+        background: var(--primary-color); /* Same as header or slightly different */
+        box-shadow: var(--shadow-lg);
+        padding: 1rem 0;
+    }
+
+    .main-nav.is-active {
+        display: block; /* Show mobile nav when active */
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 0; /* Remove horizontal gap */
+    }
+
+    .main-nav li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .main-nav li a {
+        display: block; /* Make links take full width */
+        padding: 1rem;
+        border-radius: 0; /* Remove border radius */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator */
+    }
+    .main-nav li:last-child a {
+        border-bottom: none;
+    }
+
+    .main-nav li a:hover,
+    .main-nav li a:focus-visible {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: none; /* Disable translateY on mobile nav */
+    }
+     .main-nav li a::after {
+        display: none; /* Hide underline effect on mobile */
+    }
+
+    .nav-toggle {
+        display: block; /* Show hamburger */
+    }
+
+    /* Responsive Table Styling */
+    .booked-table thead {
+        display: none; /* Hide table header */
+    }
+
+    .booked-table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-md);
+        box-shadow: var(--shadow-sm);
+    }
+     .booked-table tr:last-child {
+        margin-bottom: 0;
+     }
+
+    .booked-table td {
+        display: block;
+        text-align: right; /* Align text to the right */
+        padding-left: 50%; /* Make space for label */
+        position: relative;
+        border-bottom: 1px dotted var(--border-color); /* Dotted separator */
+    }
+     .booked-table td:last-child {
+        border-bottom: none; /* Remove border for last cell in block */
+     }
+
+    /* Add data labels using pseudo-elements */
+    .booked-table td::before {
+        content: attr(data-label); /* Get label from data-label attribute */
+        position: absolute;
+        left: 10px; /* Position label on the left */
+        width: 45%;
+        padding-right: 10px;
+        font-weight: 600;
+        text-align: left;
+        color: var(--primary-color);
+    }
+
+    .hero-content h1 { font-size: 1.8rem; }
+    .hero-content p { font-size: 1rem; }
+
+    .content-section {
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+    }
+
+    /* Updated Styles for Booking Procedure on Small Screens */
+    .steps-grid {
+        display: block; /* Stack the steps */
+        gap: 1rem; /* Reduce gap between steps */
+    }
+
+    .step-card {
+        background: transparent; /* Remove background */
+        padding: 1rem 0; /* Reduce padding */
+        border-radius: 0; /* Remove border radius */
+        text-align: left; /* Align text to the left */
+        box-shadow: none; /* Remove shadow */
+        border: none; /* Remove border */
+        position: relative; /* Maintain position for number */
+        display: flex; /* Align number and text */
+        align-items: center;
+    }
+
+    .step-number {
+        position: static; /* Position number to the left */
+        transform: none; /* Remove transform */
+        width: 30px; /* Smaller number circle */
+        height: 30px;
+        line-height: 30px;
+        font-size: 0.9rem; /* Smaller font size */
+        margin-right: 1rem; /* Space between number and text */
+        border: 2px solid var(--secondary-color); /* Keep border */
+        background: var(--background-color); /* Match background */
+        color: var(--secondary-color); /* Match color */
+        box-shadow: none; /* Remove shadow */
+    }
+
+    .step-card p {
+        font-size: 0.9rem; /* Slightly smaller font */
+    }
+
+    .booking-procedure h2 {
+        margin-bottom: 2rem; /* Adjust heading margin */
+    }
+
+    .booking-procedure h2::after {
+        bottom: -10px; /* Adjust underline position */
+    }
+}
+
+/* === Booking Form Styles === */
+
+.form-container {
+    max-width: 700px; /* Adjust max-width as needed */
+    margin: 3rem auto; /* Center the form with top/bottom margin */
+    padding: 2.5rem 3rem; /* Generous padding inside the container */
+    background-color: var(--card-background);
+    border-radius: var(--border-radius-lg); /* Use larger radius for prominent card */
+    box-shadow: var(--shadow-lg); /* Use larger shadow for depth */
+    border: 1px solid var(--border-color); /* Subtle border */
+}
+
+/* Style the heading within the form */
+.form-container h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2.5rem; /* More space below heading */
+    font-size: 2rem; /* Slightly larger heading */
+    position: relative;
+}
+
+/* Optional: Underline for the heading */
+.form-container h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
+    margin: 0.75rem auto 0; /* Center the underline */
+}
+
+/* --- Form Element Styling --- */
+
+.form-group {
+    margin-bottom: 1.75rem; /* Increase spacing between form groups */
+}
+
+.form-group label {
+    display: block; /* Ensure label is on its own line */
+    font-weight: 600; /* Make labels slightly bolder */
+    color: var(--text-color);
+    margin-bottom: 0.6rem; /* Space between label and input */
+    font-size: 0.95rem;
+}
+
+/* Common styles for text inputs, date, and textarea */
+.form-container input[type="text"],
+.form-container input[type="date"],
+.form-container textarea {
+    width: 100%;
+    padding: 0.85rem 1rem; /* Comfortable padding */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md); /* Consistent border radius */
+    font-family: var(--font-main);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: var(--background-color); /* Slightly off-white background */
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    box-sizing: border-box; /* Include padding and border in element's total width/height */
+}
+
+/* Specifics for textarea */
+.form-container textarea {
+    min-height: 120px; /* Decent minimum height */
+    resize: vertical; /* Allow vertical resizing only */
+    line-height: 1.5;
+}
+
+/* Focus states for inputs/textarea */
+.form-container input[type="text"]:focus,
+.form-container input[type="date"]:focus,
+.form-container textarea:focus {
+    outline: none; /* Remove default outline */
+    border-color: var(--primary-color); /* Highlight with primary color */
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15); /* Subtle focus ring */
+}
+
+/* Placeholder styling (optional) */
+.form-container input::placeholder,
+.form-container textarea::placeholder {
+    color: #9ca3af; /* Muted placeholder text */
+    opacity: 1; /* Override browser defaults */
+}
+
+/* Note paragraph styling */
+.form-container p {
+    font-size: 0.9rem;
+    color: #6b7280; /* Slightly muted color */
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem; /* Space before button */
+}
+
+/* Submit Button Styling */
+.form-container button[type="submit"] {
+    /* Inherit base .btn styles if applied in HTML, or define here */
+    display: block; /* Make button take full width */
+    width: 100%;
+    padding: 0.9rem 2rem;
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius-md); /* Match input radius */
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+    box-shadow: var(--shadow-md);
+}
+
+.form-container button[type="submit"]:hover,
+.form-container button[type="submit"]:focus-visible {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    outline: none;
+    box-shadow: var(--shadow-lg);
+}
+
+
+/* --- Alert Message Styling (for Flashed Messages) --- */
+
+.alert {
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-md);
+    font-size: 0.95rem;
+    display: flex; /* Align icon and text */
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Add icons using pseudo-elements (requires font-awesome or similar, or SVG) */
+/* .alert::before {
+    font-family: "Font Awesome 5 Free"; /* Example */
+/* font-weight: 900;
+    font-size: 1.2em;
+} */
+
+/* Success Alert (Green) */
+.alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+/* .alert-success::before { content: "\f058"; } */ /* Example: Font Awesome check-circle */
+
+/* Error/Danger Alert (Red) */
+.alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
+/* .alert-danger::before { content: "\f071"; } */ /* Example: Font Awesome exclamation-triangle */
+
+
+/* Info Alert (Blue) */
+.alert-info {
+    color: #055160;
+    background-color: #cff4fc;
+    border-color: #b6effb;
+}
+/* .alert-info::before { content: "\f05a"; } */ /* Example: Font Awesome info-circle */
+
+
+/* Warning Alert (Yellow) */
+.alert-warning {
+    color: #664d03;
+    background-color: #fff3cd;
+    border-color: #ffecb5;
+}
+/* .alert-warning::before { content: "\f06a"; } */ /* Example: Font Awesome exclamation-circle */
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .form-container {
+        margin: 2rem auto;
+        padding: 2rem 1.5rem; /* Reduce padding on smaller screens */
+    }
+
+    .form-container h2 {
         font-size: 1.75rem;
     }
-
-    .booked-dates p {
-        font-size: 1.2rem;
-    }
-
-    .booked-table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-
-    .booked-table th,
-    .booked-table td {
-        padding: 1rem;
-        font-size: 1.1rem;
-    }
-    .booked-table tr {
-        transition: transform 0.2s ease-in-out;
-    }
-    
-    .booked-table tr:hover {
-        transform: scale(1.05);
-        background-color: #f0f8ff;
-    }
-    
 }
 
-/* Banner and Image */
-.banner {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto 2rem auto;
+@media (max-width: 480px) {
+    .form-container {
+        margin: 1rem auto;
+        padding: 1.5rem 1rem; /* Further reduce padding */
+        border-radius: var(--border-radius-md); /* Slightly smaller radius */
+    }
+
+    .form-container h2 {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+
+     .form-container input[type="text"],
+     .form-container input[type="date"],
+     .form-container textarea {
+        padding: 0.75rem 0.85rem;
+     }
+
+    .form-container button[type="submit"] {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+    }
+
+     .alert {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+     }
+}
+
+.about-container {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.about-header h1 {
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.about-header p {
+    font-size: 1.1em;
+    color: #666;
+}
+
+.image-carousel {
+    position: relative;
+    width: 90%;
+    max-width: 600px; /* Adjust as needed */
+    margin-bottom: 30px;
     overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
-.college-photo {
+.carousel-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    min-width: 100%;
+}
+
+.carousel-slide img {
+    display: block;
     width: 100%;
     height: auto;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: block;
 }
 
-@media (max-width: 768px) {
-    .banner {
-        max-width: 100%;
-        margin: 0 0 1rem 0;
-    }
-
-    .college-photo {
-        max-height: 50vh;
-    }
-}
-/* this is for flash meesage */
-/* Flash Messages */
-.alert {
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 4px;
-    text-align: center;
+.prev-button, .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.2em;
 }
 
-.alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+.prev-button {
+    left: 10px;
+    border-radius: 5px 0 0 5px;
 }
 
-.alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+.next-button {
+    right: 10px;
+    border-radius: 0 5px 5px 0;
 }
 
-/* this css is for the admin section to display tables */
+.carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
 
-.table {
-    width: 100%;
-    border-collapse: collapse;
+.indicator {
+    width: 10px;
+    height: 10px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.indicator.active {
+    background-color: #333;
+    opacity: 1;
+}
+
+.admin-details, .contact-info {
+    background-color: white;
+    padding: 20px;
     margin-bottom: 20px;
-  }
-  
-  .table th,
-  .table td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  .table th {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  .table td {
-    background-color: #fff;
-  }
-  
-  .table tr:nth-child(even) td {
-    background-color: #f9f9f9;
-  }
-  
-  /* Approved Text */
-  .approved-text {
-    color: #28a745;
-    font-weight: bold;
-  }
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 500px;
+}
+
+.admin-details h2, .contact-info h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.admin-details p, .contact-info p {
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.about-footer {
+    text-align: center;
+    color: #777;
+    font-size: 0.9em;
+    margin-top: 20px;
+}

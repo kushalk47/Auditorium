@@ -15,7 +15,7 @@ def delete_old_data():
                 return
 
             # Delete appointments older than 30 days with approved status
-            appointment_cutoff = datetime.now() - timedelta(days=0)
+            appointment_cutoff = datetime.now() - timedelta(days=30)
             old_appointments = Appointment.query.filter(
                 Appointment.status == 'approved',
                 Appointment.appointment_date < appointment_cutoff
@@ -26,7 +26,7 @@ def delete_old_data():
             print(f"Deleted {len(old_appointments)} old appointments")
 
             # Delete users older than 1 year
-            user_cutoff = datetime.now() - timedelta(days= 0)
+            user_cutoff = datetime.now() - timedelta(days=365)
             old_users = User.query.filter(User.request_date < user_cutoff).all()
             
             for user in old_users:

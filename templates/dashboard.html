@@ -1,59 +1,106 @@
-<!-- templates/dashboard.html -->
 {% extends "base.html" %}
 
+{% block title %}Admin Dashboard{% endblock %}
+
 {% block content %}
-  <div class="container">
-    <h1>Admin Dashboard</h1>
-    <p>Welcome, {{ session.admin_name }}!</p>
+<div class="dashboard-container">
+    <header class="dashboard-header animate-on-scroll">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome, {{ session.admin_name }}!</p>
+    </header>
 
-    <h2>Manage Appointments</h2>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
-
-    {% if appointments %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Institute</th>
-            <th>Status</th>
-            <th>Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for appointment in appointments %}
-            {% if appointment.appointment_date >= current_date %}
-              <tr>
-                <td>{{ appointment.id }}</td>
-                <td>{{ appointment.name }}</td>
-                <td>{{ appointment.institute_name }}</td>
-                <td>{{ appointment.status }}</td>
-                <td>{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</td>
-                <td>
-                  {% if appointment.status != "approved" %}
-                    <form method="POST" action="{{ url_for('approve_appointment', appointment_id=appointment.id) }}" style="display:inline;">
-                      <button type="submit" class="btn btn-success">Approve</button>
-                    </form>
-                  {% else %}
-                    <span class="approved-text">Approved</span>
-                  {% endif %}
-                </td>
-              </tr>
+    <section class="manage-appointments animate-on-scroll">
+        <h2>Manage Appointments</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} animate-on-scroll">{{ message }}</div>
+                {% endfor %}
             {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <p>No appointments found.</p>
-    {% endif %}
+        {% endwith %}
 
-    <a href="{{ url_for('view_appointments') }}" class="btn btn-primary">View All Appointments</a>
-  </div>
+        {% if appointments %}
+            <div class="table-wrapper">
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Institute</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appointment in appointments %}
+                            {% if appointment.appointment_date >= current_date %}
+                                <tr class="animate-on-scroll">
+                                    <td>{{ appointment.id }}</td>
+                                    <td>{{ appointment.name }}</td>
+                                    <td>{{ appointment.institute_name }}</td>
+                                    <td class="status-{{ appointment.status }}">{{ appointment.status | capitalize }}</td>
+                                    <td>{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</td>
+                                    <td>
+                                        {% if appointment.status != "approved" %}
+                                            <form method="POST" action="{{ url_for('approve_appointment', appointment_id=appointment.id) }}" style="display:inline;">
+                                                <button type="submit" class="btn btn-approve">Approve</button>
+                                            </form>
+                                        {% else %}
+                                            <span class="approved-text">Approved</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="no-appointments animate-on-scroll">No upcoming appointments found.</p>
+        {% endif %}
+    </section>
+
+    <a href="{{ url_for('view_appointments') }}" class="btn btn-view-all animate-on-scroll">View All Appointments</a>
+</div>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<script>
+    // Button and Table Row Animations
+    document.addEventListener('DOMContentLoaded', () => {
+        // Button hover animation
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.animation = 'pulse 0.8s infinite alternate';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.animation = 'none';
+            });
+        });
+
+        // Scroll animations for elements
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animateElements.forEach(el => observer.observe(el));
+
+        // Add pulse keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                from { transform: scale(1); }
+                to { transform: scale(1.05); }
+            }
+        `;
+        document.head.appendChild(style);
+    });
+</script>
 {% endblock %}
