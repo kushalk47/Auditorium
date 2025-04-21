@@ -36,12 +36,12 @@
                         {% for appointment in appointments %}
                             {% if appointment.appointment_date >= current_date %}
                                 <tr class="animate-on-scroll">
-                                    <td>{{ appointment.id }}</td>
-                                    <td>{{ appointment.name }}</td>
-                                    <td>{{ appointment.institute_name }}</td>
-                                    <td class="status-{{ appointment.status }}">{{ appointment.status | capitalize }}</td>
-                                    <td>{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</td>
-                                    <td>
+                                    <td data-label="ID">{{ appointment.id }}</td>
+                                    <td data-label="Name">{{ appointment.name }}</td>
+                                    <td data-label="Institute">{{ appointment.institute_name }}</td>
+                                    <td data-label="Status" class="status-{{ appointment.status }}">{{ appointment.status | capitalize }}</td>
+                                    <td data-label="Date">{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</td>
+                                    <td data-label="Actions">
                                         {% if appointment.status != "approved" %}
                                             <form method="POST" action="{{ url_for('approve_appointment', appointment_id=appointment.id) }}" style="display:inline;">
                                                 <button type="submit" class="btn btn-approve">Approve</button>
@@ -64,7 +64,7 @@
     <a href="{{ url_for('view_appointments') }}" class="btn btn-view-all animate-on-scroll">View All Appointments</a>
 </div>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
 <script>
     // Button and Table Row Animations
     document.addEventListener('DOMContentLoaded', () => {

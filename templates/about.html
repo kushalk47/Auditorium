@@ -9,21 +9,27 @@
         <p>Explore our state-of-the-art auditorium facilities</p>
     </header>
 
-    <section class="image-carousel animate-on-scroll">
-        <div class="carousel-container">
-            <div class="carousel-slide">
-                <img src="{{ url_for('static', filename='images/image1.jpg') }}" alt="Auditorium Image 1">
-            </div>
-            <div class="carousel-slide">
-                <img src="{{ url_for('static', filename='images/image2.jpg') }}" alt="Auditorium Image 2">
-            </div>
-            <div class="carousel-slide">
-                <img src="{{ url_for('static', filename='images/image3.jpg') }}" alt="Auditorium Image 3">
-            </div>
-        </div>
-        <button class="prev-button">‹</button>
-        <button class="next-button">›</button>
-        <div class="carousel-indicators"></div>
+    <section class="booking-info animate-on-scroll">
+        <h2>Auditorium Booking Information</h2>
+        <p>This website is used for booking the auditorium. Any institute within the campus is welcome to submit a booking request.</p>
+        
+        <h3>Booking Guidelines</h3>
+        <ul>
+            <li>
+                <strong>Prior Approval:</strong> Please obtain approval from your respective HOD or Principal before proceeding with the booking.
+            </li>
+            <li>
+                <strong>Booking Confirmation:</strong> Once you have received the necessary approval, book the slot on this website. Then:
+                <ul>
+                    <li>Download the booking receipt.</li>
+                    <li>Get a permission letter signed by your Principal or HOD.</li>
+                    <li>Submit both the receipt and the permission letter to the Admin Office.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Final Approval:</strong> The booking will be confirmed only after the Admin verifies and approves the submitted documents.
+            </li>
+        </ul>
     </section>
 
     <section class="admin-details animate-on-scroll">
@@ -43,6 +49,6 @@
     </footer>
 </div>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
 <script src="{{ url_for('static', filename='js/about.js') }}"></script>
 {% endblock %}

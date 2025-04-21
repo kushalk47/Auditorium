@@ -1,8 +1,7 @@
-<!-- templates/admin_login.html -->
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container">
+  <div class="container animate-on-scroll">
     <h1>Admin Login</h1>
 
     <!-- Display flash messages -->
@@ -27,4 +26,22 @@
       <button type="submit" class="btn btn-primary">Login</button>
     </form>
   </div>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+  <script>
+    // Scroll animations for elements
+    document.addEventListener('DOMContentLoaded', () => {
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        animateElements.forEach(el => observer.observe(el));
+    });
+  </script>
 {% endblock %}

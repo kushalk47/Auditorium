@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kushal K - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        .navbar a {
+            color: #00b7ff;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .navbar a:hover {
+            color: #ff4081;
+            transform: scale(1.1);
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url('https://source.unsplash.com/random/1920x1080?tech') no-repeat center/cover;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .hero h1 {
+            font-size: 3.5em;
+            color: #00b7ff;
+            text-shadow: 0 0 10px rgba(0, 183, 255, 0.5);
+            animation: fadeIn 1.5s ease-out;
+        }
+        .hero p {
+            font-size: 1.5em;
+            margin: 20px 0;
+            animation: slideIn 1.8s ease-out;
+        }
+        .hero a {
+            background: #ff4081;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .hero a:hover {
+            background: #e91e63;
+            transform: translateY(-5px);
+        }
+        .section {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section h2 {
+            font-size: 2em;
+            color: #00b7ff;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #ff4081;
+            transition: width 0.3s;
+        }
+        .section h2:hover::after {
+            width: 100px;
+        }
+        .skills-chart {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .skill {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .skill:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 15px rgba(0, 183, 255, 0.3);
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .project-card {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 64, 129, 0.5);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            animation: zoomIn 0.3s ease-out;
+        }
+        .modal-content h3 {
+            color: #00b7ff;
+            margin-bottom: 10px;
+        }
+        .modal-content a {
+            color: #ff4081;
+            text-decoration: none;
+        }
+        .modal-content a:hover {
+            text-decoration: underline;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #e0e0e0;
+        }
+        .contact {
+            text-align: center;
+        }
+        .contact a {
+            color: #00b7ff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .contact a:hover {
+            color: #ff4081;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            .hero p {
+                font-size: 1.2em;
+            }
+            .section {
+                padding: 15px;
+            }
+            .navbar ul {
+                gap: 15px;
+            }
+            .navbar a {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <h1>Kushal K</h1>
+        <p>Data Scientist & Full-Stack Developer</p>
+        <a href="path/to/atsfriendly2.pdf" download>Download Resume</a>
+    </section>
+
+    <section id="skills" class="section">
+        <h2>Technical Skills</h2>
+        <div class="skills-chart">
+            <div class="skill">
+                <h3>Programming</h3>
+                <p>Python, C, C++, Java</p>
+            </div>
+            <div class="skill">
+                <h3>Machine Learning & NLP</h3>
+                <p>Scikit-Learn, BERT, NLTK, TextBlob, ClinicalBERT</p>
+            </div>
+            <div class="skill">
+                <h3>Big Data Analytics</h3>
+                <p>Hadoop, MongoDB</p>
+            </div>
+            <div class="skill">
+                <h3>Web Development</h3>
+                <p>Flask, Django, HTML, CSS, React.js</p>
+            </div>
+            <div class="skill">
+                <h3>Data Visualization</h3>
+                <p>Matplotlib, Seaborn</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2>Projects</h2>
+        <div class="project-grid">
+            <div class="project-card" onclick="openModal('healthcare')">
+                <h3>Healthcare AI Application</h3>
+                <p>Fine-tuned ClinicalBERT for medical text analysis and built a chatbot.</p>
+            </div>
+            <div class="project-card" onclick="openModal('toyota')">
+                <h3>Toyota Big Data Analytics</h3>
+                <p>NLP-powered sentiment analysis on 80,000+ feedback entries.</p>
+            </div>
+            <div class="project-card" onclick="openModal('auditorium')">
+                <h3>Auditorium Booking System</h3>
+                <p>Full-stack app with Flask and React.js for 50+ users.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact">
+        <h2>Contact</h2>
+        <p>
+            <a href="mailto:kushalkantharaju536@gmail.com">Email</a> |
+            <a href="https://www.linkedin.com/in/kushal-k-314024252/" target="_blank">LinkedIn</a> |
+            <a href="https://github.com/kushal-k" target="_blank">GitHub</a> |
+            <a href="https://kushal-portfolio.com" target="_blank">Portfolio</a>
+        </p>
+    </section>
+
+    <!-- Modals for Projects -->
+    <div id="healthcare" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('healthcare')">&times;</span>
+            <h3>Healthcare AI Application</h3>
+            <p>
+                Fine-tuned ClinicalBERT on 1,000+ health records for medical text analysis.<br>
+                Built a chatbot with ClinicalBERT, summarizing patient histories for 50+ cases daily.<br>
+                Improved health data classification accuracy by 20% using deep learning models.<br>
+                Refining model for deployment.<br>
+                <a href="https://github.com/kushal-k/healthcare-ai" target="_blank">GitHub</a>
+            </p>
+        </div>
+    </div>
+    <div id="toyota" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('toyota')">&times;</span>
+            <h3>Toyota Big Data Analytics</h3>
+            <p>
+                Processed 80,000+ feedback entries, identifying top 10 recurring complaints and 15 critical car parts.<br>
+                Built an NLP-powered model with SVM, Random Forest, and BiLSTM, achieving 18% higher accuracy in sentiment analysis.<br>
+                Designed a dashboard to track trends across 100+ dealers, reducing issue resolution time by 20%.
+            </p>
+        </div>
+    </div>
+    <div id="auditorium" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('auditorium')">&times;</span>
+            <h3>Auditorium Booking System</h3>
+            <p>
+                Built and deployed a full-stack app with Flask and React.js for 50+ users.<br>
+                Implemented authentication and real-time availability, reducing booking conflicts by 30%.<br>
+                Actively used by real users.<br>
+                <a href="https://kushal-auditorium-booking.com" target="_blank">Website</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Scroll animations
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        sections.forEach(section => observer.observe(section));
+
+        // Modal functionality
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

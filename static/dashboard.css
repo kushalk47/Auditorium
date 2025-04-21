@@ -248,23 +248,48 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .dashboard-container {
-        padding: 1.5rem;
+        padding: 1rem;
+    }
+
+    .dashboard-header {
+        margin-bottom: 2rem;
     }
 
     .dashboard-header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+
+    .dashboard-header h1::after {
+        width: 80px;
+        height: 4px;
     }
 
     .dashboard-header p {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .manage-appointments {
-        padding: 1.5rem;
+        padding: 1rem;
+        margin-bottom: 2rem;
     }
 
     .manage-appointments h2 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+        padding-left: 0.8rem;
+    }
+
+    .manage-appointments h2::before {
+        width: 4px;
+    }
+
+    .alert {
+        font-size: 0.85rem;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .table-wrapper {
+        margin-bottom: 1.5rem;
     }
 
     .dashboard-table {
@@ -272,52 +297,161 @@
         width: 100%;
     }
 
-    .dashboard-table th,
-    .dashboard-table td {
-        padding: 0.75rem;
-        font-size: 0.9rem;
+    .dashboard-table thead {
+        display: none; /* Hide table headers on mobile */
+    }
+
+    .dashboard-table tbody,
+    .dashboard-table tr {
         display: block;
-        text-align: left;
-    }
-
-    .dashboard-table th {
-        display: none; /* Hide headers on mobile, use data-labels instead */
     }
 
     .dashboard-table td {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+        border-bottom: none;
         position: relative;
-        padding-left: 50%;
+        padding-left: 40%;
     }
 
     .dashboard-table td:before {
         content: attr(data-label);
         position: absolute;
-        left: 0.75rem;
-        width: 45%;
+        left: 0.5rem;
+        width: 35%;
         font-weight: 600;
         color: var(--primary);
+        font-size: 0.85rem;
     }
 
     .dashboard-table td[data-label="Actions"] {
-        padding-left: 0.75rem;
+        padding-left: 0.5rem;
+        display: block;
+        position: relative;
+    }
+
+    .dashboard-table td[data-label="Actions"]:before {
+        content: attr(data-label);
+        display: block;
+        position: static;
+        width: auto;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.85rem;
+    }
+
+    .dashboard-table tr {
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        background: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     .btn {
         padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .btn-approve {
+        margin-top: 0.5rem;
     }
 
     .btn-view-all {
         padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
     }
 
     .no-appointments {
-        font-size: 1rem;
-        padding: 1.5rem;
+        font-size: 0.9rem;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 0.75rem;
+    }
+
+    .dashboard-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .dashboard-header h1::after {
+        width: 60px;
+        height: 3px;
+    }
+
+    .dashboard-header p {
+        font-size: 0.8rem;
+    }
+
+    .manage-appointments {
+        padding: 0.75rem;
+        border-radius: 10px;
+    }
+
+    .manage-appointments h2 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
     }
 
     .alert {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+
+    .dashboard-table td {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.5rem;
+        padding-left: 45%;
+    }
+
+    .dashboard-table td:before {
+        width: 40%;
+        font-size: 0.8rem;
+    }
+
+    .dashboard-table td[data-label="Actions"] {
+        padding-left: 0.5rem;
+    }
+
+    .dashboard-table td[data-label="Actions"]:before {
+        margin-bottom: 0.4rem;
+        font-size: 0.8rem;
+    }
+
+    .dashboard-table tr {
+        padding: 0.25rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .btn-approve {
+        margin-top: 0.4rem;
+    }
+
+    .btn-view-all {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    .no-appointments {
+        font-size: 0.85rem;
         padding: 0.75rem;
+    }
+
+    .approved-text {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
     }
 }
