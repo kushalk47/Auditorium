@@ -1,47 +1,56 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="container animate-on-scroll">
-    <h1>Admin Login</h1>
+<div class="flex items-center justify-center min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg animate-fade-in-up">
+        <div class="text-center">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-6">Admin Login</h1>
+        </div>
 
-    <!-- Display flash messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="space-y-3">
+                    {% for category, message in messages %}
+                        <div class="p-4 rounded-md text-sm {% if category == 'success' %}bg-green-100 text-green-800{% elif category == 'error' %}bg-red-100 text-red-800{% else %}bg-blue-100 text-blue-800{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 
-    <!-- Admin login form -->
-    <form method="POST" action="{{ url_for('admin_login') }}">
-      <div class="form-group">
-        <label for="name">Admin Name</label>
-        <input type="text" class="form-control" id="name" name="name" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Login</button>
-    </form>
-  </div>
+        <form class="mt-8 space-y-6" method="POST" action="{{ url_for('admin_login') }}">
+            <div class="rounded-md shadow-sm -space-y-px">
+                <div>
+                    <label for="name" class="sr-only">Admin Name</label>
+                    <input id="name" name="name" type="text" autocomplete="username" required
+                           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                           placeholder="Admin Name">
+                </div>
+                <div>
+                    <label for="password" class="sr-only">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required
+                           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-teal-500 focus:border-teal-500 focus:z-10 sm:text-sm"
+                           placeholder="Password">
+                </div>
+            </div>
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
-  <script>
-    // Scroll animations for elements
-    document.addEventListener('DOMContentLoaded', () => {
-        const animateElements = document.querySelectorAll('.animate-on-scroll');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
+            <div>
+                <button type="submit"
+                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition duration-150 ease-in-out">
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
-        animateElements.forEach(el => observer.observe(el));
-    });
-  </script>
+<style>
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+</style>
 {% endblock %}

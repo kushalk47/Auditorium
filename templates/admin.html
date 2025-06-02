@@ -1,10 +1,45 @@
-<!-- templates/admin.html -->
 {% extends "base.html" %}
 
+{% block title %}Admin - Welcome{% endblock %} {# Added a more specific title #}
+
 {% block content %}
-  <div class="container">
-    <h1>Admin Page</h1>
-    <p>Welcome, {{ session.admin_name }}! This is the admin page.</p>
-    <p>Go to the <a href="{{ url_for('dashboard') }}">Dashboard</a> to manage appointments.</p>
-  </div>
+<div class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-xl w-full space-y-8 bg-white p-10 rounded-xl shadow-lg text-center animate-fade-in-up">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Admin Page</h1>
+        
+        {# Check if session.admin_name exists before displaying it #}
+        {% if session.admin_name %}
+            <p class="text-xl text-gray-700 mb-8">Welcome, <span class="font-semibold text-teal-600">{{ session.admin_name }}</span>!</p>
+        {% else %}
+            <p class="text-xl text-gray-700 mb-8">Welcome, Administrator!</p>
+        {% endif %}
+
+        <p class="text-lg text-gray-600 mb-8">You have successfully logged in to the administration panel.</p>
+
+        <a href="{{ url_for('dashboard') }}" 
+           class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition duration-150 ease-in-out">
+            Go to Dashboard to Manage Appointments
+            <svg class="ml-3 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                <path fill-rule="evenodd" d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+            </svg>
+        </a>
+
+        {# Optional: Add a logout link #}
+        <p class="mt-8 text-sm text-gray-500">
+            Not {{ session.admin_name if session.admin_name else 'you' }}? 
+            <a href="{{ url_for('admin_logout') }}" class="text-red-600 hover:text-red-800 font-medium">Log out</a>
+        </p>
+    </div>
+</div>
+
+{# Custom styles for animations (can be moved to base.html if preferred) #}
+<style>
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+</style>
 {% endblock %}

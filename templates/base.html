@@ -4,41 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Auditorium Booking - My College{% endblock %}</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-</head>
-<body>
-    <header class="site-header">
-        <div class="header-container">
-            <a href="{{ url_for('home') }}" class="logo">BGS & SJB Group of Institutions</a>
 
-            <nav class="main-nav" id="main-nav">
-                <ul>
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('book_appointment') }}">Book Slot</a></li>
-                    <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li><a href="{{ url_for('admin') }}">Admin</a></li>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    {% block extra_head %}{% endblock extra_head %} {# Added end tag for clarity, though not strictly needed here if empty #}
+</head>
+<body class="font-inter bg-gray-50">
+    <header class="bg-white shadow-md fixed top-0 left-0 w-full z-50 transition-all duration-300" id="site-header">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <a href="{{ url_for('home') }}" class="text-2xl font-bold text-teal-600 hover:text-teal-700 transition-colors duration-300">
+                BGS & SJB Group of Institutions
+            </a>
+
+            <nav class="hidden lg:flex space-x-6" id="main-nav">
+                <ul class="flex space-x-6 items-center">
+                    <li><a href="{{ url_for('home') }}" class="text-gray-700 hover:text-teal-600 font-medium transition-colors duration-300">Home</a></li>
+                    <li><a href="{{ url_for('book_appointment') }}" class="text-gray-700 hover:text-teal-600 font-medium transition-colors duration-300">Book Slot</a></li>
+                    <li><a href="{{ url_for('about') }}" class="text-gray-700 hover:text-teal-600 font-medium transition-colors duration-300">About</a></li>
+                    {# Assuming 'admin' points to your admin login page #}
+                    <li><a href="{{ url_for('admin_login_handler') }}" class="text-gray-700 hover:text-teal-600 font-medium transition-colors duration-300">Admin</a></li>
                 </ul>
             </nav>
 
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
-                <span class="hamburger-icon"></span>
+            <button class="lg:hidden text-gray-700 focus:outline-none" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
             </button>
+        </div>
+
+        <div class="lg:hidden hidden bg-white shadow-md" id="mobile-menu">
+            <ul class="flex flex-col space-y-4 p-4">
+                <li><a href="{{ url_for('home') }}" class="text-gray-700 hover:text-teal-600 font-medium transition-colors duration-300">Home</a></li>
+                <li><a href="{{ url_for('book_appointment') }}" class="text-gray-700 hover:text-teal-600 font-medium transition-colors duration-300">Book Slot</a></li>
+                <li><a href="{{ url_for('about') }}" class="text-gray-700 hover:text-teal-600 font-medium transition-colors duration-300">About</a></li>
+                <li><a href="{{ url_for('admin_login_handler') }}" class="text-gray-700 hover:text-teal-600 font-medium transition-colors duration-300">Admin</a></li>
+            </ul>
         </div>
     </header>
 
-    <main class="main-content">
+    <main class="pt-20 min-h-screen">
         {% block content %}
-        {% endblock %}
+        {# Content from child templates will be rendered here #}
+        {% endblock content %} {# Make sure this is closed with its name #}
     </main>
 
-    <footer class="site-footer">
-        <p>&copy; <span id="current-year"></span>Powered By SJBIT CSE-DS</p>
-        </footer>
+    <footer class="bg-white text-black py-6">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>© <span id="current-year"></span> Powered By SJBIT CSE-DS</p>
+        </div>
+    </footer>
 
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
-    {% block extra_js %}{% endblock %} </body>
+    <script>
+        // Update current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('site-header');
+            header.classList.toggle('bg-opacity-90', window.scrollY > 0);
+            header.classList.toggle('shadow-lg', window.scrollY > 0);
+        });
+
+        // Mobile nav toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        navToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const isExpanded = !mobileMenu.classList.contains('hidden');
+            navToggle.setAttribute('aria-expanded', isExpanded);
+        });
+    </script>
+
+    {% block extra_body_scripts %}{% endblock extra_body_scripts %} {# THIS WAS THE MISSING CLOSING TAG! #}
+</body>
 </html>

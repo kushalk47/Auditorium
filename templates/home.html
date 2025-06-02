@@ -3,82 +3,107 @@
 {% block title %}Home - Auditorium Booking{% endblock %}
 
 {% block content %}
-<section class="hero-section">
-    <div class="hero-image-container animate-on-scroll">
-        <img src="{{ url_for('static', filename='image.png') }}" alt="View of Our College Auditorium" loading="lazy">
-    </div>
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-4">
 
-    <div class="hero-content animate-on-scroll">
-        <h1>Book the College Auditorium</h1>
-        <p>Easily check availability and reserve the auditorium for your events.</p>
-        <a href="{{ url_for('book_appointment') }}" class="btn btn-primary btn-pulse">Book a Slot Now</a>
-    </div>
-    
-</section>
-
-<section class="booking-procedure content-section animate-on-scroll" id="how-to-book">
-    <h2>How to Book Your Slot</h2>
-    <ol class="steps-grid">
-        <li class="step-card">
-            <div class="step-number">1</div>
-            <p>Check the <a href="#booked-dates">availability calendar</a> below.</p>
-        </li>
-        <li class="step-card">
-            <div class="step-number">2</div>
-            <p>Go to the 'Book Slot' page and fill in your details.</p>
-        </li>
-        <li class="step-card">
-            <div class="step-number">3</div>
-            <p>Download the generated PDF confirmation after submission.</p>
-        </li>
-        <li class="step-card">
-            <div class="step-number">4</div>
-            <p>Visit the admin block with the printed PDF.</p>
-        </li>
-        <li class="step-card">
-            <div class="step-number">5</div>
-            <p>Get the form signed by the principal.</p>
-        </li>
-        <li class="step-card">
-            <div class="step-number">6</div>
-            <p>Submit the signed form back to the admin office.</p>
-        </li>
-    </ol>
-</section>
-
-<section class="booked-dates-section content-section animate-on-scroll" id="booked-dates">
-    <h3>Upcoming Approved Bookings</h3>
-    {% if booked_appointments %}
-        <div class="table-container">
-            <table class="booked-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Booked By</th>
-                        <th>Department/Institute</th>
-                        </tr>
-                </thead>
-                <tbody>
-                    {% for appointment in booked_appointments if appointment.status == 'approved' and appointment.appointment_date >= current_date %}
-                        <tr>
-                            <td data-label="Date">{{ appointment.appointment_date.strftime('%d %b %Y') }}</td>
-                            <td data-label="Booked By">{{ appointment.name }}</td>
-                            <td data-label="Institute">{{ appointment.institute_name }}</td>
-                            </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="3" class="no-bookings">No upcoming approved bookings found.</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <section class="flex flex-col lg:flex-row items-center justify-center gap-8 mb-16 bg-white rounded-lg shadow-md overflow-hidden p-6 md:p-10">
+        <div class="lg:w-3/5 animate-fade-in-left">
+            <img src="{{ url_for('static', filename='image.png') }}" alt="View of Our College Auditorium" loading="eager" class="rounded-lg shadow-lg w-full h-auto object-cover">
         </div>
-    {% else %}
-        <p class="no-bookings">No bookings have been made yet.</p>
-    {% endif %}
-    <p class="availability-note">Please check this list before attempting to book.</p>
-</section>
+
+        <div class="lg:w-2/5 text-center lg:text-left animate-fade-in-right">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
+                Book the <span class="text-teal-600">Auditorium</span>
+            </h1>
+            <a href="{{ url_for('book_appointment') }}" class="inline-block bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-75">
+                Book a Slot Now
+            </a>
+        </div>
+    </section>
+
+    <section class="mb-16 bg-white rounded-lg shadow-md p-6 md:p-10 animate-fade-in-up">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">Auditorium Glimpses</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <img src="{{ url_for('static', filename='images/audi1.jpg') }}" alt="Auditorium Interior View 1" class="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <div class="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <img src="{{ url_for('static', filename='images/audi2.jpg') }}" alt="Auditorium Stage View" class="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <div class="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <img src="{{ url_for('static', filename='images/audi3.jpg') }}" alt="Auditorium Seating Arrangement" class="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <div class="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <img src="{{ url_for('static', filename='images/audi4.jpg') }}" alt="Auditorium Entrance" class="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <div class="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <img src="{{ url_for('static', filename='images/audi5.jpg') }}" alt="Auditorium Entrance" class="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+            <div class="rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <img src="{{ url_for('static', filename='images/audi6.jpg') }}" alt="Auditorium Entrance" class="w-full h-48 object-cover transform hover:scale-105 transition-transform duration-300" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-8 bg-white rounded-lg shadow-md p-6 md:p-10 animate-fade-in-up" id="booked-dates">
+        <h3 class="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">Upcoming Approved Bookings</h3>
+        {% if booked_appointments %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200 rounded-lg overflow-hidden shadow-sm">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department/Institute</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for appointment in booked_appointments if appointment.status == 'approved' and appointment.appointment_date >= current_date %}
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ appointment.appointment_date.strftime('%d %b %Y') }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ appointment.institute_name }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="3" class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 italic">No upcoming approved bookings found.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center text-lg text-gray-600 py-6">No bookings have been made yet.</p>
+        {% endif %}
+        <p class="text-center text-gray-600 mt-6 text-sm">Please check this list before attempting to book.</p>
+    </section>
+
+</div>
+
+<style>
+    @keyframes fadeInLeft {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+        from { opacity: 0; transform: translateX(20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in-left { animation: fadeInLeft 0.8s ease-out forwards; }
+    .animate-fade-in-right { animation: fadeInRight 0.8s ease-out forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+    /* Delay animations for sequential appearance */
+    .hero-section > .animate-fade-in-left { animation-delay: 0.1s; }
+    .hero-section > .animate-fade-in-right { animation-delay: 0.3s; }
+    /* Adjusted animation delays for the gallery and subsequent sections */
+    .auditorium-gallery-section { animation-delay: 0.5s; }
+    .booking-procedure { animation-delay: 0.7s; }
+    .booked-dates-section { animation-delay: 0.9s; } 
+</style>
 {% endblock %}
 
 {% block extra_js %}
-    {% endblock %}
+{% endblock %}
