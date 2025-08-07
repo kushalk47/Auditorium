@@ -60,13 +60,11 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ appointment.appointment_date.strftime('%Y-%m-%d') }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        {% if appointment.status == "pending" %} {# Only show approve/reject for pending #}
+                                        {% if appointment.status == "Pending" %} {# Only show approve/reject for pending #}
                                             <form method="POST" action="{{ url_for('approve_appointment', appointment_id=appointment.id) }}" class="inline-block mr-2">
                                                 <button type="submit" class="text-green-600 hover:text-green-900 transition-colors duration-150">Approve</button>
                                             </form>
-                                            <form method="POST" action="{{ url_for('reject_appointment', appointment_id=appointment.id) }}" class="inline-block">
-                                                <button type="submit" class="text-red-600 hover:text-red-900 transition-colors duration-150">Reject</button>
-                                            </form>
+                                           
                                         {% elif appointment.status == "approved" %}
                                             <span class="text-green-600 font-bold">Approved</span>
                                         {% elif appointment.status == "rejected" %}
