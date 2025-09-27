@@ -67,7 +67,7 @@ flowchart TD
     FlaskApp -->|ORM| DB[(TiDB Cloud Database)]
     DB --> FlaskApp
     FlaskApp --> Templates[HTML Templates + Static Files]
-```
+
 
 The application follows a modular Flask architecture:
 
