@@ -1,4 +1,4 @@
-
+````markdown
 # Flask-based Auditorium Booking System
 
 > Hi, I'm Kushal K. This repository contains a Flask web application designed to manage college auditorium bookings. It provides user-friendly interfaces for booking, and an admin dashboard to approve and manage requests. The system uses SQLAlchemy ORM for database management and TiDB Cloud as the backend database.
@@ -7,16 +7,16 @@
 
 ## Core Components
 
-* [File Directory Structure](#file-directory-structure)  
-* [Instructions to Run the Code](#instructions-to-run-the-code)  
-* [Initialization (`__init__.py`)](#initialization-__init__py)  
-* [Application Entrypoint (`app.py`)](#application-entrypoint-apppy)  
-* [Routes (`routes.py`)](#routes-routespy)  
-* [Models (`models.py`)](#models-modelspy)  
-* [Configuration (`config.py`)](#configuration-configpy)  
-* [Admin Login & Security](#admin-login--security)  
-* [Templates & Static Files](#templates--static-files)  
-* [Scalability and Enhancements](#scalability-and-enhancements)  
+- [File Directory Structure](#file-directory-structure)  
+- [Instructions to Run the Code](#instructions-to-run-the-code)  
+- [Initialization (`__init__.py`)](#initialization-__init__py)  
+- [Application Entrypoint (`app.py`)](#application-entrypoint-apppy)  
+- [Routes (`routes.py`)](#routes-routespy)  
+- [Models (`models.py`)](#models-modelspy)  
+- [Configuration (`config.py`)](#configuration-configpy)  
+- [Admin Login & Security](#admin-login--security)  
+- [Templates & Static Files](#templates--static-files)  
+- [Scalability and Enhancements](#scalability-and-enhancements)  
 
 ---
 
@@ -44,7 +44,7 @@ AUDITORIUM/
 ├── routes.py
 ├── run_app.py
 └── run.py
-
+````
 
 ---
 
