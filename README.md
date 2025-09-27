@@ -1,4 +1,4 @@
-````markdown
+
 # Flask-based Auditorium Booking System
 
 > Hi, I'm Kushal K. This repository contains a Flask web application designed to manage college auditorium bookings. It provides user-friendly interfaces for booking, and an admin dashboard to approve and manage requests. The system uses SQLAlchemy ORM for database management and TiDB Cloud as the backend database.
@@ -201,7 +201,6 @@ SQLAlchemy ORM models:
 
 ✨ With this setup, you can manage auditorium bookings efficiently, ensuring secure admin handling and seamless database integration.
 
-```
 ```
 
 
